@@ -121,8 +121,6 @@ object Main {
 
     val (calls, boards) = parseInput(input)
 
-    println(calls.length)
-
     val part1 = playPart1(calls, boards)
     println(s"part1 ${part1}")
 
