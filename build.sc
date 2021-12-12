@@ -7,3 +7,4 @@ trait aoc2021 extends ScalaModule {
 object day1 extends aoc2021
 object day2 extends aoc2021
 object day3 extends aoc2021
+object day4 extends aoc2021
