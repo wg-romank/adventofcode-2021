@@ -16,19 +16,23 @@ object Main {
   def isVertial(from: Location, to: Location): Boolean = from.x == to.x
 
   case class OceanFloor(l: List[List[Int]]) {
-    def logMeasurements(from: Location, to: Location): OceanFloor =
+    def logMeasurements(from: Location, to: Location): OceanFloor = {
+      val minX = Math.min(from.x, to.x)
+      val maxX = Math.max(from.x, to.x)
+      val minY = Math.min(from.y, to.y)
+      val maxY = Math.max(from.y, to.y)
+
+      val lookup: (Int, Int) => Boolean = (col, row) =>
+        if (isHorizontal(from, to)) row == from.y && col >= minX && col <= maxX
+        else if (isVertial(from, to)) col == from.x && row >= minY && row <= maxY
+        else false
+
       copy(l = l.zipWithIndex.map { 
         case (r, rIdx) => r.zipWithIndex.map {
-          case (e, cIdx) =>
-            if (isHorizontal(from, to))
-              if (rIdx == from.y && cIdx <= Math.max(from.x, to.x) && cIdx >= Math.min(from.x, to.x))
-                e + 1 else e
-            else if (isVertial(from, to))
-              if (cIdx == from.x && rIdx <= Math.max(from.y, to.y) && rIdx >= Math.min(from.y, to.y))
-                e + 1 else e
-            else e
+          case (e, cIdx) => if (lookup(cIdx, rIdx)) e + 1 else e
         }
       })
+    }
 
     def countOverlaps: Int = l.map(_.count(_ > 1)).sum
 
