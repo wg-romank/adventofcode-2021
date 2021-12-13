@@ -25,7 +25,15 @@ object Main {
       val lookup: (Int, Int) => Boolean = (col, row) =>
         if (isHorizontal(from, to)) row == from.y && col >= minX && col <= maxX
         else if (isVertial(from, to)) col == from.x && row >= minY && row <= maxY
-        else false
+        else {
+          // y = a x + b
+          // y1 = a x1 + b
+          // y2 = a x2 + b
+          // results in 
+          val a = (from.y - to.y) / (from.x - to.x)
+          val b = to.y - a * to.x
+          row == a * col + b && col >= minX && row >= minY && col <= maxX && row <= maxY
+        }
 
       copy(l = l.zipWithIndex.map { 
         case (r, rIdx) => r.zipWithIndex.map {
@@ -63,6 +71,6 @@ object Main {
     // println(of)
 
     val part1 = of.countOverlaps
-    println(s"part1 ${part1}")
+    println(s"part1/2 ${part1}")
   }
 }
