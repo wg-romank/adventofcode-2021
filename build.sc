@@ -9,3 +9,4 @@ object day2 extends aoc2021
 object day3 extends aoc2021
 object day4 extends aoc2021
 object day5 extends aoc2021
+object day6 extends aoc2021
